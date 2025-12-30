@@ -1,0 +1,38 @@
+import numpy as np
+from scipy.stats import norm
+
+# Sample data (1D)
+X = np.array([2.0, 3.0, 3.5, 5.0, 8.0, 9.0, 10.0])
+
+# Number of clusters
+K = 2
+n = len(X)
+
+# Initialize parameters
+means = np.array([3.0, 9.0])
+variances = np.array([1.0, 1.0])
+weights = np.array([0.5, 0.5])
+
+# EM Algorithm
+for iteration in range(10):
+    # -------- E-step --------
+    responsibilities = np.zeros((n, K))
+    
+    for k in range(K):
+        responsibilities[:, k] = (
+            weights[k] * norm.pdf(X, means[k], np.sqrt(variances[k]))
+        )
+    
+    responsibilities = responsibilities / responsibilities.sum(axis=1, keepdims=True)
+
+    # -------- M-step --------
+    for k in range(K):
+        Nk = responsibilities[:, k].sum()
+        means[k] = (responsibilities[:, k] * X).sum() / Nk
+        variances[k] = (responsibilities[:, k] * (X - means[k])**2).sum() / Nk
+        weights[k] = Nk / n
+
+# Output results
+print("Final Means:", means)
+print("Final Variances:", variances)
+print("Final Weights:", weights)
