@@ -1,0 +1,25 @@
+from sklearn.linear_model import LinearRegression, LogisticRegression
+
+# ------------------
+# Linear Regression
+# ------------------
+X_linear = [[1], [2], [3], [4], [5]]
+y_linear = [2, 4, 6, 8, 10]
+
+lr = LinearRegression()
+lr.fit(X_linear, y_linear)
+
+print("Linear Regression Prediction for 6:", lr.predict([[6]]))
+
+
+# ------------------
+# Logistic Regression
+# ------------------
+X_logistic = [[1], [2], [3], [4], [5]]
+y_logistic = [0, 0, 0, 1, 1]
+
+logr = LogisticRegression()
+logr.fit(X_logistic, y_logistic)
+
+print("Logistic Regression Prediction for 3:", logr.predict([[3]]))
+print("Logistic Regression Prediction for 5:", logr.predict([[5]]))
