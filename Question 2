@@ -1,0 +1,28 @@
+# Find-S Algorithm Implementation
+
+# Training data (attributes only)
+data = [
+    ['Some', 'Small', 'No', 'Affordable', 'Few', 'No'],
+    ['Many', 'Big', 'No', 'Expensive', 'Many', 'Yes'],
+    ['Many', 'Medium', 'No', 'Expensive', 'Few', 'Yes'],
+    ['Many', 'Small', 'No', 'Affordable', 'Many', 'Yes']
+]
+
+# Initialize hypothesis with first positive example
+hypothesis = None
+
+for example in data:
+    attributes = example[:-1]
+    label = example[-1]
+
+    if label == 'Yes':
+        if hypothesis is None:
+            hypothesis = attributes.copy()
+        else:
+            for i in range(len(hypothesis)):
+                if hypothesis[i] != attributes[i]:
+                    hypothesis[i] = '?'
+
+# Display the most specific hypothesis
+print("Most Specific Hypothesis:")
+print(hypothesis)
